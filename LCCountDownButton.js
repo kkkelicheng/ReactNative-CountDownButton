@@ -3,7 +3,7 @@
  */
 
 
-import React, { Component } from 'react';
+import React, { Component ,PropTypes} from 'react';
 import {
     AppRegistry,
     StyleSheet,
@@ -32,13 +32,14 @@ export default class LCCountDownButton extends Component {
       }
 
     static propTypes = {
-        id:React.PropTypes.string,          //以后用
-        beginText:React.PropTypes.string,   //初始状态按钮title
-        endText:React.PropTypes.string,     //读秒结束后按钮的title
-        count:React.PropTypes.number,       //计时数
-        pressAction:React.PropTypes.func,   //按下按钮的事件,但是触发倒数需要你自己来调用方法
-        changeWithCount:React.PropTypes.func,   //读秒变化的函数,该函数带有一个参数count,表示当前的剩余事件
-        end:React.PropTypes.func,           //读秒完毕后的函数
+        id               :React.PropTypes.string,          //以后用
+        beginText        :React.PropTypes.string,   //初始状态按钮title
+        endText          :React.PropTypes.string,     //读秒结束后按钮的title
+        count            :React.PropTypes.number,       //计时数
+        pressAction      :React.PropTypes.func,   //按下按钮的事件,但是触发倒数需要你自己来调用方法
+        changeWithCount  :React.PropTypes.func,   //读秒变化的函数,该函数带有一个参数count,表示当前的剩余事件
+        end              :React.PropTypes.func,           //读秒完毕后的函数
+        frameStyle       :View.propTypes.style    //初始化的位置大小
     }
 
     buttonState = LCCountDownButtonState.LCCountDownButtonActive;
@@ -79,10 +80,12 @@ export default class LCCountDownButton extends Component {
 
     render(){
         let isDisable = this.buttonState == LCCountDownButtonState.LCCountDownButtonDisable
+        const {frameStyle} = this.props
+
         return (
             <TouchableOpacity disabled={isDisable}
                               onPress={()=>{this.props.pressAction && this.props.pressAction()}}
-                              style={[styles.buttonCommonStyle,isDisable?styles.disableButtonStyle:styles.activeButtonStyle]}
+                              style={[styles.buttonCommonStyle,isDisable?styles.disableButtonStyle:styles.activeButtonStyle,frameStyle]}
             >
                 <Text style={[styles.txtCommonStyle,isDisable?styles.disableTxtStyle:styles.activeTxtStyle]}>
                     {this.state.btnTitle}
@@ -104,6 +107,8 @@ const styles = StyleSheet.create({
         paddingLeft:15,
         paddingTop:8,
         paddingBottom:8,
+        justifyContent:'center',
+        alignItems:'center'
     },
     //禁用时候的TouchableOpacity样式
     disableButtonStyle:{
