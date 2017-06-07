@@ -53,3 +53,4 @@ TouchableOpacity 和 Text 不同状态下的样式，在源文件里面已经写
 当然你也可以自己改源文件，将这些样式作为属性传入。
 
 ## 效果图
+![效果图](https://github.com/kkkelicheng/ReactNative-CountDownButton/blob/master/countDownButton.gif)
