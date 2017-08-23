@@ -61,7 +61,7 @@
 // 这个方法就是上面pressAction触发
     _countDownButtonPressed(){
     		// 1s 后触发倒计时  例如做网络请求后的再读秒
-        this.timer = setTimeout(this.triggerCount.bind(this),1000);
+        this.timer = setTimeout(this._triggerCount.bind(this),1000);
     }
 
 // 拿到按钮，开始倒计时
