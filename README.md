@@ -70,8 +70,31 @@
 
 
 ## 交给你做的事 
-TouchableOpacity 和 Text 不同状态下的样式，在源文件里面已经写了。
+TouchableOpacity 和 Text 不同状态下的样式，在源文件里面已经写了（源文件styles摘要如下）。
 当然你也可以自己改源文件，将这些样式作为属性传入。
+
+
+
+```
+    //禁用时候的Text样式
+    disableTxtStyle:{
+        color:'gray',
+    },
+    //可以点击时候的Text样式
+    activeTxtStyle:{
+        color:'black',
+    }
+    
+    //禁用时候的TouchableOpacity样式
+    disableButtonStyle:{
+        backgroundColor:'red',
+    },
+    //可以点击时候的TouchableOpacity样式
+    activeButtonStyle:{
+        backgroundColor:'green',
+    },
+```
+
 
 ## 效果图
 ![效果图](https://github.com/kkkelicheng/ReactNative-CountDownButton/blob/master/countDownButton.gif)
