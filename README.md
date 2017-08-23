@@ -50,7 +50,11 @@
 
 **2.触发LCCountDownButton倒计时方法**
 
-要主动调用`startCountDown`这个方法，按钮才会读秒
+要主动调用`startCountDown`这个方法，按钮才会读秒，
+上面的`pressAction={()=>{this.countDownButton.startCountDown()}`是直接调用了读秒，而没有做任何其他的操作。
+
+下面这个栗子是做网络等耗时处理。
+`pressAction={()=>{this. _countDownButtonPressed()}`
 
 
 ```
@@ -95,6 +99,17 @@ TouchableOpacity 和 Text 不同状态下的样式，在源文件里面已经写
     },
 ```
 
+关于按钮大小的设置：
+
+```
+<LCCountDownButton
+ frameStyle={{top:44 * 3 + 4,right:10,width:120,height:36,position:'absolute'}}
+...
+/>
+```
+设置frame的width和height。
+
+如果你宽度想自适应，那么不用设置width。
 
 ## 效果图
 ![效果图](https://github.com/kkkelicheng/ReactNative-CountDownButton/blob/master/countDownButton.gif)
