@@ -66,7 +66,7 @@
 
 // 拿到按钮，开始倒计时
     _triggerCount(){
-        let button = this.refs.LCCountDownButton;
+        let button = this.countDownButton;
         button.startCountDown();
     }
 
