@@ -5,6 +5,14 @@
 
 有好的建议请给issue，有问题也可以提出。
 
+## 安装
+使用**npm**或者**手动**
+* npm安装
+执行以下`npm install react-native-countdownbutton -S`一下,
+在需要用到的地方导入头文件`import LCCountDownButton from 'react-native-countdownbutton'`
+* 手动安装
+download这个LCCountDownButton.js文件就行,然后拖到你的项目中.
+
 ## 特点
 * **容易自己改代码**
 
@@ -18,11 +26,7 @@
 	
 	1. 不会因为进入后台而停止读秒
 	2. 支持同个页面再次进入时，智能的判断读秒时间，显示是否继续计时
-	
-	
-	
-## 怎么使用
-直接下载该js文件就行了，不需要npm xxx这东西
+
 
 **1. 初始化该组件**
 
