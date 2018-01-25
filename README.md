@@ -14,9 +14,6 @@
 download这个LCCountDownButton.js文件就行,然后拖到你的项目中.
 
 ## 特点
-* **容易自己改代码**
-
-	仅仅使用`TouchableOpacity`和`Text`两个东西，样式你得自己写
 
 * **接口多**
 
@@ -27,6 +24,8 @@ download这个LCCountDownButton.js文件就行,然后拖到你的项目中.
 	1. 不会因为进入后台而停止读秒
 	2. 支持同个页面再次进入时，智能的判断读秒时间，显示是否继续计时
 
+
+## 使用
 
 **1. 初始化该组件**
 
@@ -74,32 +73,47 @@ download这个LCCountDownButton.js文件就行,然后拖到你的项目中.
 
 ```
 
+---
 
-## 交给你做的事 
-TouchableOpacity 和 Text 不同状态下的样式，在源文件里面已经写了（源文件styles摘要如下）。
-当然你也可以自己改源文件，将这些样式作为属性传入。
-
-
+综上所述，下面是一个完整的例子：
 
 ```
-    //禁用时候的Text样式
-    disableTxtStyle:{
-        color:'gray',
-    },
-    //可以点击时候的Text样式
-    activeTxtStyle:{
-        color:'black',
-    }
+<LCCountDownButton frameStyle={{top:44 * 3 + 4,right:10,width:120,height:36,position:'absolute'}}
+                   beginText='获取验证码'
+                   endText='再次获取验证码'
+                   count={10}
+                   pressAction={_countDownButtonPressed}
+                   changeWithCount={(count)=> count + 's后重新获取'}
+                   id='register'   
+                   ref={(e)=>{this.countDownButton=e}}
+                   />
+                   
+
+_countDownButtonPressed(){
+//触发倒计时
+	this.countDownButton.startCountDown();
+	
+//请求发送验证码
+	fetch('请求验证码')
+	.then()
+	.catch()
+}
     
-    //禁用时候的TouchableOpacity样式
-    disableButtonStyle:{
-        backgroundColor:'red',
-    },
-    //可以点击时候的TouchableOpacity样式
-    activeButtonStyle:{
-        backgroundColor:'green',
-    },
+
+
 ```
+
+
+
+## 样式的属性
+|props|discription|
+|---|---|
+|frameStyle        |     整个按钮初始化的位置大小   |
+|disableStyle      |    按钮禁用的时候样式         |
+|activeStyle       |    active情况下按钮样式       |
+|disableTextStyle  |   按钮禁用的时候里面文字的样式  |
+|activeTextStyle   |  active情况下按钮里面文字的样式|
+
 
 关于按钮大小的设置：
 

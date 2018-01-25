@@ -32,15 +32,19 @@ export default class LCCountDownButton extends Component {
         }
     }
 
-    static propTypes = {
-        id:React.PropTypes.string,          //按钮的身份标识,同一个页面的按钮是同一个id
-        beginText:React.PropTypes.string,   //初始状态按钮title
-        endText:React.PropTypes.string,     //读秒结束后按钮的title
-        count:React.PropTypes.number,       //计时数
-        pressAction:React.PropTypes.func,   //按下按钮的事件,但是触发倒数需要你自己来调用方法
-        changeWithCount:React.PropTypes.func,   //读秒变化的函数,该函数带有一个参数count,表示当前的剩余事件
-        end:React.PropTypes.func,           //读秒完毕后的函数
-        frameStyle:View.propTypes.style    //初始化的位置大小
+    static defaultProps = {
+        id                  :   "id",           //按钮的身份标识,同一个页面的按钮是同一个id
+        beginText           :   "beginText",    //初始状态按钮title
+        endText             :   "endText",      //读秒结束后按钮的title
+        count               :   10,             //总的计时数 单位是秒s
+        pressAction         :   ()=>{},         //按下按钮的事件,但是触发倒数(startCountDown)需要你自己来调用
+        changeWithCount     :   ()=>{},         //读秒变化的函数,该函数带有一个参数count,表示当前的剩余事件
+        end                 :   ()=>{},         //读秒完毕后的回调,读秒结束触发
+        frameStyle          :   {},             //初始化的位置大小
+        disableStyle        :   {},             //按钮禁用的时候样式                 (有默认,见底部styles)
+        activeStyle         :   {},             //active情况下按钮样式              (有默认,见底部styles)
+        disableTextStyle    :   {},             //按钮禁用的时候里面文字的样式        (有默认,见底部styles)
+        activeTextStyle     :   {},             //active情况下按钮里面文字的样式      (有默认,见底部styles)
     }
 
     buttonState = LCCountDownButtonState.LCCountDownButtonActive;
@@ -132,15 +136,30 @@ export default class LCCountDownButton extends Component {
         this.recordButtonInfo();
     }
 
+    buttonPressed=()=>{
+        const {pressAction} = this.props;
+        pressAction();
+    }
+
     render(){
         let isDisable = this.buttonState == LCCountDownButtonState.LCCountDownButtonDisable;
-        const {frameStyle} = this.props
+        const {frameStyle,disableStyle,activeStyle,disableTextStyle,activeTextStyle}
+            = this.props;
         return (
             <TouchableOpacity disabled={isDisable}
-                              onPress={()=>{this.props.pressAction && this.props.pressAction()}}
-                              style={[styles.buttonCommonStyle,isDisable?styles.disableButtonStyle:styles.activeButtonStyle,frameStyle]}
+                              onPress={this.buttonPressed}
+                              style={[
+                                  styles.buttonCommonStyle,
+                                  isDisable  ?  styles.disableButtonStyle : styles.activeButtonStyle,
+                                  isDisable  ?  disableStyle : activeStyle,
+                                  frameStyle
+                              ]}
             >
-                <Text style={[styles.txtCommonStyle,isDisable?styles.disableTxtStyle:styles.activeTxtStyle]}>
+                <Text style={[
+                        styles.txtCommonStyle,
+                        isDisable  ?  styles.disableTxtStyle : styles.activeTxtStyle,
+                        isDisable  ? disableTextStyle : activeTextStyle
+                ]}>
                     {this.state.btnTitle}
                 </Text>
             </TouchableOpacity>
