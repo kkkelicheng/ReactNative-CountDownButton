@@ -28,7 +28,8 @@ export default class LCCountDownButton extends Component {
         super(props);
         // 初始状态
         this.state={
-            btnTitle:'默认'
+            btnTitle:'默认',
+            buttonState: LCCountDownButtonState.LCCountDownButtonActive
         }
     }
 
@@ -47,13 +48,12 @@ export default class LCCountDownButton extends Component {
         activeTextStyle     :   {},             //active情况下按钮里面文字的样式      (有默认,见底部styles)
     }
 
-    buttonState = LCCountDownButtonState.LCCountDownButtonActive;
-
     componentWillMount() {
         this.shouldSetState = true;
-        this.state = {
+        this.setState({
             btnTitle:this.props.beginText,
-        }
+            buttonState: LCCountDownButtonState.LCCountDownButtonActive
+        })
     }
 
     componentDidMount() {
@@ -89,7 +89,7 @@ export default class LCCountDownButton extends Component {
     }
 
     startCountDownWithCount(startTime){
-        this.buttonState = LCCountDownButtonState.LCCountDownButtonDisable;
+        this.setState({buttonState: LCCountDownButtonState.LCCountDownButtonDisable});
         const {changeWithCount,endText,count,end}= this.props;
         this.startTime = startTime;
         this.interval = setInterval(()=>{
@@ -99,7 +99,7 @@ export default class LCCountDownButton extends Component {
                 content = endText;
                 this.clearTime();
                 end && end();
-                this.buttonState = LCCountDownButtonState.LCCountDownButtonActive;
+                this.setState({buttonState: LCCountDownButtonState.LCCountDownButtonActive});
             }
             if(this.shouldSetState){
                 this.setState({
@@ -142,7 +142,7 @@ export default class LCCountDownButton extends Component {
     }
 
     render(){
-        let isDisable = this.buttonState == LCCountDownButtonState.LCCountDownButtonDisable;
+        let isDisable = this.state.buttonState == LCCountDownButtonState.LCCountDownButtonDisable;
         const {frameStyle,disableStyle,activeStyle,disableTextStyle,activeTextStyle}
             = this.props;
         return (
